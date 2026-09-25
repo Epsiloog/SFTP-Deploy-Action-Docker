@@ -1,0 +1,12 @@
+# Utiliser Alpine avec OpenSSH et rsync
+FROM alpine:3.18.4
+
+# Installer les dépendances nécessaires
+RUN apk --no-cache add rsync sshpass openssh
+
+# Copier le script de déploiement dans le conteneur
+COPY sync_sftp.sh /usr/local/bin/sync_sftp.sh
+RUN chmod +x /usr/local/bin/sync_sftp.sh
+
+# Définir le point d’entrée du conteneur
+ENTRYPOINT ["/usr/local/bin/sync_sftp.sh"]
